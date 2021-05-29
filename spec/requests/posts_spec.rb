@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe "Posts", type: :request do
 
-  describe "GET /post" do
-    before { get '/post' }
+  describe "GET /posts" do
+    before { get '/posts' }
 
     it "should return ok" do
       payload = JSON.parse(response.body)
@@ -13,7 +13,7 @@ RSpec.describe "Posts", type: :request do
 
   end
   describe "with data in the DB" do
-    before { get '/post' }
+    before { get '/posts' }
 
     let(:posts) { create_list(:post, 10, publisher:true) }
     #rspec {factory_bot} create list the 10 articles publisher
@@ -30,7 +30,7 @@ RSpec.describe "Posts", type: :request do
     let(:post) { create(:post) }
 
     it "should return a post" do
-      get "/post/#{post.id}"
+      get "/posts/#{post.id}"
 
       payload = JSON.parse(response.body)
       expect(payload).to_not be_empty
