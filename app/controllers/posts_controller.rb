@@ -1,12 +1,12 @@
-class PostsController < ApplicationController
+ class PostsController < ApplicationController
   #get /post
   def index
-    @post = Post.where(published: true)
+    @posts = Post.where(published: true)
     render json: @posts, status: :ok
   end
   #get /posts/{id}
   def show
     @post = Post.find(params[:id])
-
+    render json: @json, status: :ok
   end
 end
