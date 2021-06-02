@@ -1,5 +1,5 @@
 require "rails_helper"
-
+require "byebug"
 RSpec.describe "Posts", type: :request do
 
   describe "GET /posts" do
@@ -10,15 +10,13 @@ RSpec.describe "Posts", type: :request do
       expect(payload).to be_empty
       expect(response).to have_http_status(200)
     end
-
   end
+ 
   describe "with data in the DB" do
-    before { get '/posts' }
-
-    let(:posts) { create_list(:post, 10, publisher:true) }
+    let!(:posts) { create_list(:post, 10, publisher:true) }
     #rspec {factory_bot} create list the 10 articles publisher
-
     it "should return all the publisher posts" do
+      get '/posts'
       payload = JSON.parse(response.body)
       expect(payload.size).to eq(post.size)
       expect(response).to have_http_status(200)
